@@ -1,3 +1,21 @@
+body {
+    font-family: 'mario-font', sans-serif;
+}
+@font-face {
+	font-family: 'mario-font';
+	src: url("https://dl.dropboxusercontent.com/s/c7c7j86yaj11et9/SuperMario256.ttf?dl=0");
+}
+.score{
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+}
+.score_number{
+    position: absolute;
+    right: 15px;
+    z-index: 1;/*o z-index define como são empilhados os elementos, quando maior o z-index na frente menor atrás*/
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -5,6 +23,7 @@
 } 
 
 .game-board{
+    top:60px;
     width: 80%;
     height: 500px;
     border-bottom: 15px solid rgb(34, 160 , 35);
