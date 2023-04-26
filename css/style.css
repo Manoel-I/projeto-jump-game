@@ -2,12 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-:root {
-    
-}
-  
+} 
 
 .game-board{
     width: 80%;
@@ -33,14 +28,43 @@
     width: 130px;
 }
 
+.cloud-01{
+    position: absolute;
+    top: -20px;
+    width: 150px;
+    animation: clouds 22s infinite linear;
+}
+.cloud-02{
+    position: absolute;
+    top : 100px;
+    width: 150px;
+    animation: clouds 20s infinite linear;
+}
+
+.cloud-03{
+    position: absolute;
+    width: 151px;
+    animation: clouds_slow 30s infinite linear;
+}
+.cloud-04{
+    position: absolute;
+    width: 150px;
+    animation: clouds_slow 26s infinite linear;
+}
+
+.cloud-05{
+    position: absolute;
+    top: 20px;
+    width: 150px;
+    animation: clouds_slow 26.7s infinite linear;
+}
+
 .jump{
     animation: jump 500ms ease-out;/*o ease-out serve pra dar suavidade na animação*/
 }
 
-
-
 .game_over_mario{
-    animation: down 2000ms  ;
+    animation: down 3000ms  ;
 }
 
 /* @keyframes serve para fazer animações*/
@@ -88,5 +112,24 @@
     }
     100%{
         bottom: -140px;
+    }
+}
+
+@keyframes clouds {
+    from{
+        right: -150px;
+    }
+    to{
+        right: 100%;
+    }
+    
+}
+
+@keyframes clouds_slow {
+    from{
+        right: -500px;
+    }
+    to{
+        right: 100%;
     }
 }

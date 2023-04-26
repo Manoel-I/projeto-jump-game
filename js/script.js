@@ -1,23 +1,23 @@
 // pegando o elemento da imagem do mario e do cano
 const mario = document.querySelector('.mario');
 const pipe = document.querySelector('.pipe');
-
+const ambience_sound = document.getElementById('ambience_sound');
 
 
 // adicionando a class jump a imagem do mario
 const jump = () => {
     mario.classList.add('jump');
-
+    sound();
     setTimeout( () =>{
         mario.classList.remove('jump');
     } , 500);
 
 }
 
-//definindo o som ambiente do jogo
-const ambience_sound = document.getElementById('ambience_sound');
-ambience_sound.play();
-
+//definindo o som ambiente do jogo dessa forma pois o proprio navegador barra autoplay de coisas que o user não interagiu :(
+function sound (){
+    ambience_sound.play();
+}
 
 // definindo o hitbox para game-over
 const loop = setInterval(()=>{
@@ -31,6 +31,7 @@ const loop = setInterval(()=>{
 
     if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
         ambience_sound.pause();
+        ambience_sound.muted = true;
         
         pipe.style.animation = 'none';
         pipe.style.left = pipePosition+'px';
