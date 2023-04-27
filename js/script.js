@@ -71,7 +71,6 @@ const loop = setInterval(()=>{
     
 
   if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
-      full_black_tv()
       clearInterval(running_mario_score); 
       ambience_sound.pause();
       ambience_sound.muted = true;
@@ -96,10 +95,10 @@ const loop = setInterval(()=>{
       //adicionando a musica quando dá game over
       const gameoverSound = document.querySelector('audio');
       gameoverSound.play().then(setTimeout(()=>{
-        gameoverSound.pause();
         clearInterval(loop);
-              
-      }, 7000));
+      }, 3000)).then(setTimeout(()=>{
+        full_black_tv();
+      }, 4000));
     
     } 
 
@@ -117,7 +116,7 @@ function full_black_tv() {
     if (opacity >= 1) {
       clearInterval(intervalo);
     }
-  }, 400);  // intervalo em milissegundos
+  }, 175);  // intervalo em milissegundos
 }
 
 
