@@ -20,7 +20,7 @@ let previous_position = pipe.offsetLeft;
 let displacement = 0; 
 var full_displacement = 0;
 
-const running_mario = setInterval(() => {
+const running_mario_score = setInterval(() => {
   const current_position = pipe.offsetLeft;
   displacement = (current_position - previous_position);
   if(displacement < 0){
@@ -58,50 +58,68 @@ function sound (){
 
 // definindo o hitbox para game-over
 const loop = setInterval(()=>{
-    // pegando o valor posição do cano
-    const pipePosition = pipe.offsetLeft;
+  
+  // pegando o valor posição do cano
+  const pipePosition = pipe.offsetLeft;
    
     
-    //console.log("teminou");
+  //console.log("teminou");
 
-    //pegando a posição de pulo do mario
-    //          #colocando o "+" na frente da string tranforma em numero
-    const marioPosition = +window.getComputedStyle(mario).bottom.replace('px','');//posição computada no estilo da imagem
+  //pegando a posição de pulo do mario
+  //          #colocando o "+" na frente da string tranforma em numero
+  const marioPosition = +window.getComputedStyle(mario).bottom.replace('px','');//posição computada no estilo da imagem
     
 
-    if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
-        clearInterval(running_mario); 
-        ambience_sound.pause();
-        ambience_sound.muted = true;
+  if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
+      full_black_tv()
+      clearInterval(running_mario_score); 
+      ambience_sound.pause();
+      ambience_sound.muted = true;
 
-        //parando a animação do cano
-        pipe.style.animation = 'none';
-        pipe.style.left = pipePosition+'px';
+      //parando a animação do cano
+      pipe.style.animation = 'none';
+      pipe.style.left = pipePosition+'px';
 
-        //parando a animação do mario
-        //mario.style.animation = 'none';
-        mario.style.bottom = marioPosition+'px';
+      //parando a animação do mario
+      //mario.style.animation = 'none';
+      mario.style.bottom = marioPosition+'px';
 
-        //trocando o mario normal pelo mario quando dá game over
-        mario.src = "./imagens/mario-gameover.png";
-        mario.style.width = '70px'
-        mario.style.marginLeft = '50px';
+      //trocando o mario normal pelo mario quando dá game over
+      mario.src = "./imagens/mario-gameover.png";
+      mario.style.width = '70px'
+      mario.style.marginLeft = '50px';
 
-        //adicionando a animação de game over
-         mario.classList.add('game_over_mario');
+      //adicionando a animação de game over
+      mario.classList.add('game_over_mario');
         
 
-        //adicionando a musica quando dá game over
-        const gameoverSound = document.querySelector('audio');
-        gameoverSound.play().then(setTimeout(()=>{
-            gameoverSound.pause();
-            clearInterval(loop);
+      //adicionando a musica quando dá game over
+      const gameoverSound = document.querySelector('audio');
+      gameoverSound.play().then(setTimeout(()=>{
+        gameoverSound.pause();
+        clearInterval(loop);
               
-        }, 7000));
+      }, 7000));
     
     } 
 
 }, 10);
+
+// contrução do "apagar" da tela de game over do jogo
+const tv_board_div = document.getElementById('tv-board');
+var opacity = 0;
+console.log("divzinha", tv_board_div)
+
+function full_black_tv() { 
+  const intervalo = setInterval(function() {
+    opacity += 0.01;
+    tv_board_div.style.opacity = opacity;
+    if (opacity >= 1) {
+      clearInterval(intervalo);
+    }
+  }, 400);  // intervalo em milissegundos
+}
+
 
 
 

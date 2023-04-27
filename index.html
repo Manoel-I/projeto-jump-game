@@ -11,7 +11,10 @@
 </head>
 
 <body>
-    <div class="game-board">
+    <!--criação de uma div igual a do game-board para fazer o efeito de desligar do gameover -->
+    <div class="tv-board" id="tv-board"></div>
+
+    <div class="game-board" id ="game-board-id">
         <div>
             <h3 class="score">score</h3><br>
             <h3 class="score_number" id="score_number">0</h3>
@@ -26,6 +29,7 @@
         <audio src="./sound/gameover-sound.mp4"></audio>
         <audio src="./sound/ambience-sound.mp4" id="ambience_sound" type="audio/mpeg" loop="true"></audio>
     </div>
+    
 </body>
 
 <script>
