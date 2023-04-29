@@ -59,7 +59,8 @@ body {
 .mario{
     position: absolute;
     bottom: 0;
-    width: 130px;
+    width: 65px;
+    margin-left: 20px;
 }
 
 .cloud-01{
