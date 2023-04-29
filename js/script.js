@@ -8,10 +8,14 @@ var score_number = document.getElementById('score_number');
 const jump = () => {
     mario.classList.add('jump');
     sound();
+    mario.src = "./imagens/mario-jump.png";
+    mario.style.width = '60px'
 
     setTimeout( () =>{
         mario.classList.remove('jump');
-    } , 500);
+        mario.src = "./imagens/mario-gif6-cut.gif";
+        mario.style.width ='65px';
+    } , 450);
 
 }
 
@@ -71,7 +75,7 @@ const loop = setInterval(()=>{
     
 
   if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
-      full_black_tv()
+      clearInterval(jump);
       clearInterval(running_mario_score); 
       ambience_sound.pause();
       ambience_sound.muted = true;
@@ -79,11 +83,11 @@ const loop = setInterval(()=>{
       //parando a animação do cano
       pipe.style.animation = 'none';
       pipe.style.left = pipePosition+'px';
-
+    
       //parando a animação do mario
       //mario.style.animation = 'none';
       mario.style.bottom = marioPosition+'px';
-
+    
       //trocando o mario normal pelo mario quando dá game over
       mario.src = "./imagens/mario-gameover.png";
       mario.style.width = '70px'
@@ -92,14 +96,14 @@ const loop = setInterval(()=>{
       //adicionando a animação de game over
       mario.classList.add('game_over_mario');
         
-
+    
       //adicionando a musica quando dá game over
       const gameoverSound = document.querySelector('audio');
       gameoverSound.play().then(setTimeout(()=>{
-        gameoverSound.pause();
         clearInterval(loop);
-              
-      }, 7000));
+      }, 3000)).then(setTimeout(()=>{
+        full_black_tv();
+      }, 4000));
     
     } 
 
@@ -117,7 +121,7 @@ function full_black_tv() {
     if (opacity >= 1) {
       clearInterval(intervalo);
     }
-  }, 400);  // intervalo em milissegundos
+  }, 175);  // intervalo em milissegundos
 }
 
 
