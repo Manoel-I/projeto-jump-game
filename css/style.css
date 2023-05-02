@@ -33,6 +33,7 @@ body {
     margin: 0 auto;
     position: absolute;
     opacity: 0;
+    overflow: hidden;
 }
 
 .game-board{
@@ -60,7 +61,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 65px;
-    margin-left: 20px;
+    margin-left: 51px;
 }
 
 .cloud-01{
@@ -100,6 +101,48 @@ body {
 
 .game_over_mario{
     animation: down 3000ms  ;
+}
+
+.game_image{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0px;
+    opacity: 0;
+}
+
+.over_image{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0px;
+    opacity: 0;
+}
+
+.game_image.animation{
+    animation: game_part_animation 1s;
+}
+.over_image.animation{
+    animation: over_part_animation 1s;
+}
+
+
+@keyframes game_part_animation {
+    from{
+        left: -900px;
+    }
+    to{
+        left: 682,5%;
+    }
+}
+
+@keyframes over_part_animation {
+    from{
+        right: -900px;
+    }
+    to{
+        right: 682,5px;
+    }
 }
 
 /* @keyframes serve para fazer animações*/
@@ -168,3 +211,5 @@ body {
         right: 100%;
     }
 }
+
+
