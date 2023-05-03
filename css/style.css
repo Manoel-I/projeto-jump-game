@@ -36,6 +36,17 @@ body {
     overflow: hidden;
 }
 
+.restart_button{
+    font-family: 'mario-font', sans-serif;
+    position: absolute;
+    width: 92px;
+    height: 23px;
+    border-radius: 20px;
+    bottom: 103px;
+    right: 630px;
+    visibility: hidden;
+}
+
 .game-board{
     top:40px;
     left: 150px;
