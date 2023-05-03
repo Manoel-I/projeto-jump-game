@@ -3,6 +3,8 @@ const mario = document.querySelector('.mario');
 const pipe = document.querySelector('.pipe');
 const ambience_sound = document.getElementById('ambience_sound');
 var score_number = document.getElementById('score_number');
+const restart_button = document.getElementsByClassName('restart_button');
+console.log("botao -->",restart_button);
 
 //variavel da finalização do pulo para conseguir arrumar o bug de trocar a imagem quando já se deu game over
 var jump_animation_completion ;
@@ -74,7 +76,6 @@ function game_over_stop_cloud_animation(){
   
 }
 
-
 // definindo o hitbox para game-over
 const loop = setInterval(() => {
   
@@ -84,7 +85,6 @@ const loop = setInterval(() => {
   //pegando a posição de pulo do mario
   //          #colocando o "+" na frente da string tranforma em numero
   const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');//posição computada no estilo da imagem
-
 
   if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
     //tirando a segunda fase da animação de pulo, para naõ trocar a imagem quando der game over
@@ -130,6 +130,10 @@ const loop = setInterval(() => {
         animation_over_image();
         animation_game_image();
       },1000);
+      setInterval(()=>{
+        
+        restart_button[0].style.visibility =  "visible";
+      },2500);
       
     }, 4000));
     
@@ -137,7 +141,6 @@ const loop = setInterval(() => {
   
 
 }, 10);
-
 
 
 // contrução da animação de "apagar" da tela de game over do jogo
@@ -169,9 +172,11 @@ function animation_game_image(){
 }
 
 
+function restart_game(){
+  window.location.reload(false);
+}
 
 
 
-
-
+restart_button[0].addEventListener('click', restart_game);
 document.addEventListener('keydown', jump);
