@@ -62,6 +62,18 @@ function sound() {
   ambience_sound.play();
 }
 
+//pegando as imagens das nuvens para conseguir parar elas quando acontece o game_over
+const array_clouds = document.querySelectorAll(".cloud-01,.cloud-02,.cloud-03,.cloud-04,.cloud-05")
+//função para parar as nuvens 
+function game_over_stop_cloud_animation(){
+  for(let i = 0;i <array_clouds.length; i++){
+    const cloud_Position = array_clouds[i].offsetLeft;
+    array_clouds[i].style.animation = 'none';
+    array_clouds[i].style.left = cloud_Position + 'px';
+  }
+  
+}
+
 
 // definindo o hitbox para game-over
 const loop = setInterval(() => {
@@ -73,11 +85,11 @@ const loop = setInterval(() => {
   //          #colocando o "+" na frente da string tranforma em numero
   const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');//posição computada no estilo da imagem
 
-  
 
   if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
     //tirando a segunda fase da animação de pulo, para naõ trocar a imagem quando der game over
     clearInterval(jump_animation_completion);
+    game_over_stop_cloud_animation();
     
     //tirando o event de pulo para não bugar a imagem quando morre
     document.removeEventListener('keydown', jump);
@@ -117,7 +129,6 @@ const loop = setInterval(() => {
       setInterval(()=>{
         animation_over_image();
         animation_game_image();
-        console.log("interval");
       },1000);
       
     }, 4000));
