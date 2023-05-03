@@ -4,7 +4,7 @@ const pipe = document.querySelector('.pipe');
 const ambience_sound = document.getElementById('ambience_sound');
 var score_number = document.getElementById('score_number');
 const restart_button = document.getElementsByClassName('restart_button');
-console.log("botao -->",restart_button);
+const jump_sound = document.getElementById('jump_sound');
 
 //variavel da finalização do pulo para conseguir arrumar o bug de trocar a imagem quando já se deu game over
 var jump_animation_completion ;
@@ -13,6 +13,8 @@ var jump_animation_completion ;
 function jump() {
   mario.classList.add('jump');
   sound();
+  jump_sound.volume = 0.2;
+  jump_sound.play();
   mario.src = "./imagens/mario-jump.png";
   mario.style.width = '60px';
 
@@ -20,7 +22,7 @@ function jump() {
     mario.classList.remove('jump');
     mario.src = "./imagens/mario-gif6-cut.gif";
     mario.style.width = '65px';
-  }, 450);
+  }, 550);
 
 }
 
