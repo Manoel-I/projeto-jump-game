@@ -13,7 +13,7 @@ var jump_animation_completion ;
 function jump() {
   mario.classList.add('jump');
   sound();
-  jump_sound.volume = 0.2;
+  jump_sound.volume = 0.09;
   jump_sound.play();
   mario.src = "./imagens/mario-jump.png";
   mario.style.width = '60px';
@@ -75,7 +75,18 @@ function game_over_stop_cloud_animation(){
     array_clouds[i].style.animation = 'none';
     array_clouds[i].style.left = cloud_Position + 'px';
   }
-  
+}
+
+ //função para salvar a pontuação no localStorage do navegador
+var id = Math.floor(Math.random() * 999999); // cria um id unico para cada vez que se jogar 
+function store_score(){
+  console.log("pegou o escore", score);
+
+  if(localStorage.getItem(id) == null && score != 0 && id != 0){
+    localStorage.setItem(id, JSON.stringify("{name:Manu, score :"+(+score)+"}"));
+    console.log("salvou o score");
+    id = 0;
+  }
 }
 
 // definindo o hitbox para game-over
@@ -92,6 +103,7 @@ const loop = setInterval(() => {
     //tirando a segunda fase da animação de pulo, para naõ trocar a imagem quando der game over
     clearInterval(jump_animation_completion);
     game_over_stop_cloud_animation();
+    
     
     //tirando o event de pulo para não bugar a imagem quando morre
     document.removeEventListener('keydown', jump);
@@ -137,11 +149,12 @@ const loop = setInterval(() => {
         restart_button[0].style.visibility =  "visible";
       },2500);
       
+      
+      console.log("score --->", +score_number.innerText);
     }, 4000));
-    
+    store_score();
   }
   
-
 }, 10);
 
 
