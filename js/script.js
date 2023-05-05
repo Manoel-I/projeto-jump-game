@@ -3,8 +3,14 @@ const mario = document.querySelector('.mario');
 const pipe = document.querySelector('.pipe');
 const ambience_sound = document.getElementById('ambience_sound');
 var score_number = document.getElementById('score_number');
+var high_score_number = document.getElementById('high_score_number');
 const restart_button = document.getElementsByClassName('restart_button');
 const jump_sound = document.getElementById('jump_sound');
+
+// if para a criação de uma key de um objeto JSON no localStorage.
+if(localStorage.getItem("score") == null){
+	localStorage.setItem("score", JSON.stringify({}));
+}
 
 //variavel da finalização do pulo para conseguir arrumar o bug de trocar a imagem quando já se deu game over
 var jump_animation_completion ;
@@ -77,17 +83,29 @@ function game_over_stop_cloud_animation(){
   }
 }
 
- //função para salvar a pontuação no localStorage do navegador
 var id = Math.floor(Math.random() * 999999); // cria um id unico para cada vez que se jogar 
-function store_score(){
-  console.log("pegou o escore", score);
+ //função para salvar a pontuação no localStorage do navegador
+function storage_score(number){
+  let set_score ={ 
+    number:number 
+  }
+  let all_score = JSON.parse(localStorage.getItem("score"));
+  all_score[id] = set_score;
+  localStorage.setItem("score", JSON.stringify(all_score));
+}
 
-  if(localStorage.getItem(id) == null && score != 0 && id != 0){
-    localStorage.setItem(id, JSON.stringify("{name:Manu, score :"+(+score)+"}"));
-    console.log("salvou o score");
-    id = 0;
+// contagem dos scores salvos no localStorage para ver qual o maior 
+let json = JSON.parse(localStorage.getItem('score'));
+let high_number = 0;
+
+for(var i in json){ 
+  if(json[i].number > high_number){
+    high_number = json[i].number;
   }
 }
+//colocando a maior pontuação na tela
+high_score_number.innerText = high_number;
+
 
 // definindo o hitbox para game-over
 const loop = setInterval(() => {
@@ -99,6 +117,7 @@ const loop = setInterval(() => {
   //          #colocando o "+" na frente da string tranforma em numero
   const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');//posição computada no estilo da imagem
 
+  ///*
   if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
     //tirando a segunda fase da animação de pulo, para naõ trocar a imagem quando der game over
     clearInterval(jump_animation_completion);
@@ -152,8 +171,9 @@ const loop = setInterval(() => {
       
       console.log("score --->", +score_number.innerText);
     }, 4000));
-    store_score();
+    storage_score(+score_number.innerText);
   }
+  //*/
   
 }, 10);
 
