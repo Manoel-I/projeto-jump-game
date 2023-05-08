@@ -9,7 +9,7 @@ const jump_sound = document.getElementById('jump_sound');
 
 // if para a criação de uma key de um objeto JSON no localStorage.
 if(localStorage.getItem("score") == null){
-	localStorage.setItem("score", JSON.stringify({}));
+	localStorage.setItem("score", 0);
 }
 
 //variavel da finalização do pulo para conseguir arrumar o bug de trocar a imagem quando já se deu game over
@@ -83,28 +83,8 @@ function game_over_stop_cloud_animation(){
   }
 }
 
-var id = Math.floor(Math.random() * 999999); // cria um id unico para cada vez que se jogar 
- //função para salvar a pontuação no localStorage do navegador
-function storage_score(number){
-  let set_score ={ 
-    number:number 
-  }
-  let all_score = JSON.parse(localStorage.getItem("score"));
-  all_score[id] = set_score;
-  localStorage.setItem("score", JSON.stringify(all_score));
-}
-
-// contagem dos scores salvos no localStorage para ver qual o maior 
-let json = JSON.parse(localStorage.getItem('score'));
-let high_number = 0;
-
-for(var i in json){ 
-  if(json[i].number > high_number){
-    high_number = json[i].number;
-  }
-}
 //colocando a maior pontuação na tela
-high_score_number.innerText = high_number;
+high_score_number.innerText = localStorage.getItem('score');
 
 
 // definindo o hitbox para game-over
@@ -168,10 +148,13 @@ const loop = setInterval(() => {
         restart_button[0].style.visibility =  "visible";
       },2500);
       
-      
-      console.log("score --->", +score_number.innerText);
     }, 4000));
-    storage_score(+score_number.innerText);
+    //if para verificar a se a pontuação realizada é maior que a guardada no localStorage
+    if(localStorage.getItem('score') < +score_number.innerText){
+      console.log("entrou no if");
+      localStorage.setItem('score', +score_number.innerText);
+    }
+   
   }
   //*/
   
