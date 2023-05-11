@@ -97,68 +97,71 @@ const loop = setInterval(() => {
   //          #colocando o "+" na frente da string tranforma em numero
   const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');//posição computada no estilo da imagem
 
-  ///*
+  
   if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-    //tirando a segunda fase da animação de pulo, para naõ trocar a imagem quando der game over
-    clearInterval(jump_animation_completion);
-    game_over_stop_cloud_animation();
-    
-    
-    //tirando o event de pulo para não bugar a imagem quando morre
-    document.removeEventListener('keydown', jump);
-
-    //clearInterval(jump);
-    clearInterval(running_mario_score);
-
-    //pausando a musica ambiente
-    ambience_sound.pause();
-    ambience_sound.muted = true;
-
-    //parando a animação do cano
-    pipe.style.animation = 'none';
-    pipe.style.left = pipePosition + 'px';
-
-    //parando a animação do mario
-    //mario.style.animation = 'none';
-    mario.style.bottom = marioPosition + 'px';
-
-    //trocando o mario normal pelo mario quando dá game over
-    mario.src = "./imagens/mario-gameover.png";
-    mario.style.width = '70px'
-    mario.style.marginLeft = '50px';
-
-    //adicionando a animação de game over
-    mario.classList.add('game_over_mario');
-
-
-    //adicionando a musica quando dá game over
-    const gameoverSound = document.querySelector('audio');
-    gameoverSound.play().then(setTimeout(() => {
-      clearInterval(loop);
-    }, 3000)).then(setTimeout(() => {
-      full_black_tv();
-
-      //precisei desse "setInterval" para a animação do game-over sair no momento certo.
-      setInterval(()=>{
-        animation_over_image();
-        animation_game_image();
-      },1000);
-      setInterval(()=>{
-        
-        restart_button[0].style.visibility =  "visible";
-      },2500);
-      
-    }, 4000));
-    //if para verificar a se a pontuação realizada é maior que a guardada no localStorage
-    if(localStorage.getItem('score') < +score_number.innerText){
-      console.log("entrou no if");
-      localStorage.setItem('score', +score_number.innerText);
-    }
-   
+    game_over(pipePosition, marioPosition);
   }
-  //*/
+  
   
 }, 10);
+
+function game_over(pipePosition , marioPosition){
+ //tirando a segunda fase da animação de pulo, para naõ trocar a imagem quando der game over
+ clearInterval(jump_animation_completion);
+ game_over_stop_cloud_animation();
+ 
+ 
+ //tirando o event de pulo para não bugar a imagem quando morre
+ document.removeEventListener('keydown', jump);
+
+ //clearInterval(jump);
+ clearInterval(running_mario_score);
+
+ //pausando a musica ambiente
+ ambience_sound.pause();
+ ambience_sound.muted = true;
+
+ //parando a animação do cano
+ pipe.style.animation = 'none';
+ pipe.style.left = pipePosition + 'px';
+
+ //parando a animação do mario
+ //mario.style.animation = 'none';
+ mario.style.bottom = marioPosition + 'px';
+
+ //trocando o mario normal pelo mario quando dá game over
+ mario.src = "./imagens/mario-gameover.png";
+ mario.style.width = '70px'
+ mario.style.marginLeft = '50px';
+
+ //adicionando a animação de game over
+ mario.classList.add('game_over_mario');
+
+
+ //adicionando a musica quando dá game over
+ const gameoverSound = document.querySelector('audio');
+ gameoverSound.play().then(setTimeout(() => {
+   clearInterval(loop);
+ }, 3000)).then(setTimeout(() => {
+   full_black_tv();
+
+   //precisei desse "setInterval" para a animação do game-over sair no momento certo.
+   setInterval(()=>{
+     animation_over_image();
+     animation_game_image();
+   },1000);
+   setInterval(()=>{
+     
+     restart_button[0].style.visibility =  "visible";
+   },2500);
+   
+ }, 4000));
+ //if para verificar a se a pontuação realizada é maior que a guardada no localStorage
+ if(localStorage.getItem('score') < +score_number.innerText){
+   localStorage.setItem('score', +score_number.innerText);
+ }
+
+}
 
 
 // contrução da animação de "apagar" da tela de game over do jogo
